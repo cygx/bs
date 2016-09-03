@@ -1,4 +1,5 @@
-build: docs/index.html docs/manual.css
+build: manual.html
+docs: docs/index.html docs/manual.css
 clean:; rm -f manual.html manual.html.tmp
 
 docs/index.html: manual.html; cp $< $@
