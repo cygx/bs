@@ -66,9 +66,13 @@ my token name {
     [\w+]+ % \-
 }
 
+my token argstring {
+    [ [ \\. ] | <-[\\\]]>+ ]*
+}
+
 my token attribute {
-    \[ <name> [ \h ([ [ \\. ] | <-[\\\]]>+ ]*) ]? \]
-    { make "$<name>=\"{ $0 ?? $0.trans(|@ATTR) !! '' }\"" }
+    \[ <name> [ \h <argstring> ]? \]
+    { make "$<name>=\"{ $<argstring> ?? $<argstring>.trans(|@ATTR) !! '' }\"" }
 }
 
 my token attributes {
@@ -145,10 +149,30 @@ sub close-block {
     $closed = True;
 }
 
+my \INPUT = class {
+    also does Iterable;
+    also does Iterator;
+
+    my @input = lines.iterator;
+
+    method iterator { self }
+    method unshift(\list) { @input.unshift(list.iterator) }
+    method shift { @input.shift }
+    method pull-one {
+        return IterationEnd unless @input;
+        my \rv = @input[0].pull-one;
+        if rv =:= IterationEnd {
+            self.shift;
+            self.pull-one;
+        }
+        else { rv }
+    }
+}
+
 put '<!DOCTYPE html>';
 
 my %macros;
-for lines() {
+for INPUT {
     LAST close-block;
 
     when defined $block.tag {
@@ -171,6 +195,10 @@ for lines() {
 
     when /^ \\macro\! \[ (<[\S]-[\w]>+) \] \h (.*) $/ {
         %macros{~$0} = ~$1;
+    }
+
+    when /^ \\include\! \[ <argstring> \] $/ {
+        INPUT.unshift($<argstring>.Str.IO.lines(:close));
     }
 
     when /^ '\\---' $/ {

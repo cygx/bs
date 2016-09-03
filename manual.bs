@@ -1,8 +1,7 @@
-\macro![~] <sup><a href="#bs-note-$" id="bs-ref-$" class="bs-ref">$</a></sup>
-\macro![@] <sup><a href="#bs-ref-$" id="bs-note-$" class="bs-note">$</a></sup>
-
+\meta[charset utf-8]
 \title A Sane Way to Write HTML
 \link[rel stylesheet][type text/css][href manual.css]
+\include![macros.bs]
 
 \h1 A Sane Way to write HTML
 

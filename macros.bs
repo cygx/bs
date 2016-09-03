@@ -1,0 +1,2 @@
+\macro![~] <sup><a href="#bs-note-$" id="bs-ref-$" class="bs-ref">$</a></sup>
+\macro![@] <sup><a href="#bs-ref-$" id="bs-note-$" class="bs-note">$</a></sup>
