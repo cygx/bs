@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+<title>A Sane Way to Write HTML</title>
+<link rel="stylesheet" href="manual.css" type="text/css"/>
+<h1>A Sane Way to write HTML</h1>
+<p>
+Sets paragraph mode to &lt;p&gt;.<br/>
+Stuff extends to the end of the current field or \\
+</p>
+<p>
+A new paragraph. There are also &alpha; escape sequences.
+A link can be added like <a title="[A] &amp; [B]" href="foo.html">this</a>.
+We also escape &amp; and can apply <b><i>multiple elements at once</i></b>.
+</p>
+<p>
+We also can<sup><a href="#note-1" id="ref-1" class="ref">1</a></sup> have<sup><a href="#note-2" id="ref-2" class="ref">2</a></sup> footnotes<sup><a href="#note-3" id="ref-3" class="ref">3</a></sup>.
+</p>
+<pre><code class="c">int main(int argc, char *argv[]) {
+    puts("Hello World!");
+    return 0;
+}
+</code></pre>
+<ol>
+<!--1.--><li>First point</li>
+<!--2.--><li>Second point</li>
+<!--3.--><li>Third point</li>
+</ol>
+<table border="1">
+<tr><th>Name</th><td>deca</td><td>hecto</td><td>kilo</td></tr>
+<tr><th>Value</th><td>10</td><td>100</td><td>1000</td></tr>
+</table>
+<table border="1">
+<tr><th>Name</th><th>Value</th></tr>
+<tr><td>pi</td><td>3.14</td></tr>
+<tr><td>e</td><td>2.72</td></tr>
+</table>
+<hr/>
+<div><small><sup><a href="#ref-1" id="note-1" class="note">1</a></sup> footnote 1</small></div>
+<div><small><sup><a href="#ref-2" id="note-2" class="note">2</a></sup> footnote 2</small></div>
+<div><small><sup><a href="#ref-3" id="note-3" class="note">3</a></sup> footnote 3</small></div>
