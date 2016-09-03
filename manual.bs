@@ -1,0 +1,45 @@
+\macro![~] <sup><a href="#bs-note-$" id="bs-ref-$" class="bs-ref">$</a></sup>
+\macro![@] <sup><a href="#bs-ref-$" id="bs-note-$" class="bs-note">$</a></sup>
+
+\title A Sane Way to Write HTML
+\link[rel stylesheet][type text/css][href manual.css]
+
+\h1 A Sane Way to write HTML
+
+\p*
+Sets paragraph mode to <p>.
+Stuff extends to the end of the current field or \|\|
+
+A new paragraph. There are also \alpha; escape sequences.
+A link can be added like \a[href foo.html][title [A\] & \[B\]] this\\.
+We also escape & and can apply \b:i multiple elements at once\\.
+
+We also can\~1; have\~2; footnotes\~3;.
+
+\pre(CODE):code[class c]
+int main(int argc, char *argv[]) {
+    puts("Hello World!");
+    return 0;
+}
+CODE
+
+\ol..{!,li}*
+1.	First point
+2.	Second point
+3.	Third point
+
+\table[border 1].tr.{th,td}*
+Name	deca	hecto	kilo
+Value	10		100		1000
+
+\table[border 1].{tr.th,tr.td}*
+Name	Value
+pi		3.14
+e		2.72
+
+\---
+
+\div:small*
+\@1; footnote 1\br
+\@2; footnote 2\br
+\@3; footnote 3\br
