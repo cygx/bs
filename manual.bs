@@ -8,7 +8,7 @@
 \h1 A Sane Way to write HTML
 
 \p*
-Sets paragraph mode to <p>.
+Sets paragraph mode to <p>.\br
 Stuff extends to the end of the current field or \|\|
 
 A new paragraph. There are also \alpha; escape sequences.
@@ -41,7 +41,7 @@ e		2.72
 \\
 \hr
 
-\div:small*
-\@1; footnote 1\br
-\@2; footnote 2\br
-\@3; footnote 3\br
+\.div:small*
+\@1; footnote 1
+\@2; footnote 2
+\@3; footnote 3

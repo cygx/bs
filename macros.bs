@@ -1,2 +1,2 @@
-\macro![~] <sup><a href="#bs-note-$" id="bs-ref-$" class="bs-ref">$</a></sup>
-\macro![@] <sup><a href="#bs-ref-$" id="bs-note-$" class="bs-note">$</a></sup>
+\macro![~] <sup><a href="#note-$" id="ref-$" class="ref">$</a></sup>
+\macro![@] <sup><a href="#ref-$" id="note-$" class="note">$</a></sup>

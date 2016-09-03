@@ -32,12 +32,10 @@ a {
     padding-right: 0.1em;
 }
 
-.bs-note, .bs-ref {
-    border: 1px solid gray;
-    text-decoration: none;
+.note, .ref {
     font-size: 0.5em;
 }
 
-.bs-note:target, .bs-ref:target {
+.note:target, .ref:target {
     border-color: red;
 }
