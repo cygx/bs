@@ -1,5 +1,8 @@
 use v6;
 
+my %macros;
+my %defaults;
+
 my @HTML =
     /\&/ => '&amp;',
     /\</ => '&lt;',
@@ -77,11 +80,19 @@ my token attribute {
 
 my token attributes {
     <attribute>*
-    { make $<attribute> ?? ' ' ~ $<attribute>>>.made.join(' ') !! '' }
+    {
+        my %attrs = %defaults{$*element}
+                if $*element && %defaults{$*element};
+
+        %attrs{~.<name>} = .made for $<attribute>;
+        make %attrs ?? ' ' ~ %attrs.values.join(' ') !! '';
+    }
 }
 
 my token single($tagged = False) {
-    <name> [ <!{$tagged}> || \( <tag=&name> \) ] <attributes>
+    <name> [ <!{$tagged}> || \( <tag=&name> \) ]
+    :my $*element = ~$<name>;
+    <attributes>
     {
         make Element.new(name => ~$<name>, attrs => $<attributes>.made,
             tag => $tagged ?? ~$<tag> !! Nil);
@@ -171,7 +182,6 @@ my \INPUT = class {
 
 put '<!DOCTYPE html>';
 
-my %macros;
 for INPUT {
     LAST close-block;
 
@@ -199,6 +209,13 @@ for INPUT {
 
     when /^ \\include\! \[ <argstring> \] $/ {
         INPUT.unshift($<argstring>.Str.IO.lines(:close));
+    }
+
+    when /^ \\default\! \[ <name> \] <attributes> $/ {
+        my $attributes = %defaults{~$<name>} //= {};
+        for $<attributes><attribute> {
+            $attributes{~.<name>} = .made;
+        }
     }
 
     when /^ \\ <element(:tagged)> $/ {

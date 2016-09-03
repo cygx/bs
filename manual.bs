@@ -1,7 +1,9 @@
 \meta[charset utf-8]
 \title A Sane Way to Write HTML
 \link[rel stylesheet][type text/css][href manual.css]
+
 \include![macros.bs]
+\default![table][border 1]
 
 \h1 A Sane Way to write HTML
 
@@ -27,11 +29,11 @@ CODE
 2.	Second point
 3.	Third point
 
-\table[border 1].tr.{th,td}*
+\table.tr.{th,td}*
 Name	deca	hecto	kilo
 Value	10		100		1000
 
-\table[border 1].{tr.th,tr.td}*
+\table.{tr.th,tr.td}*
 Name	Value
 pi		3.14
 e		2.72
