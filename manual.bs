@@ -36,7 +36,8 @@ Name	Value
 pi		3.14
 e		2.72
 
-\---
+\\
+\hr
 
 \div:small*
 \@1; footnote 1\br

@@ -201,10 +201,6 @@ for INPUT {
         INPUT.unshift($<argstring>.Str.IO.lines(:close));
     }
 
-    when /^ '\\---' $/ {
-        put "<hr/>";
-    }
-
     when /^ \\ <element(:tagged)> $/ {
         close-block;
         $block = $<element>.made;
