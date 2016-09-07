@@ -3,18 +3,18 @@ use v6;
 my (%macros, %defaults);
 
 my @HTML =
-    /\&/ => '&amp;',
-    /\</ => '&lt;',
-    /\>/ => '&gt;';
+    / '&' / => '&amp;',
+    / '<' / => '&lt;',
+    / '>' / => '&gt;';
 
 my @BS = |@HTML,
-    /\\\|/ => '\\',
-    /\\\[/ => '[',
-    /\\\]/ => ']',
-    /\\(\#?\w+)\;/ => { $/ := CALLER::<$/>; "&$0;" }; # bug?
+    / '\\|' / => '\\',
+    / '\\[' / => '[',
+    / '\\]' / => ']',
+    / '\\' ('#'? \w+) ';' / => { $/ := CALLER::<$/>; "&$0;" }; # bug?
 
 my @ATTR = |@BS,
-    /\"/ => '&quot;';
+    / '"' / => '&quot;';
 
 my class Element {
     has $.name;
@@ -96,6 +96,7 @@ sub element-from-match($/) {
 
 my token name { [\w+]+ % '-' }
 my token string { [ ['\\' .] | <-[\\\]]>+ ]* }
+my token macroname { <[\S]-[\w\[\]]>+ }
 
 my token attribute {
     '[' <name> [\h <string>]? ']'
@@ -164,9 +165,10 @@ my grammar Line {
     | <.starred>
     | <.heredoc>
     }
+
     token blank     { $ }
     token rasa      { '\\\\' $ }
-    token macro     { '\\macro![' (<[\S]-[\w\[\]]>+) ']' \h (.*) $ }
+    token macro     { '\\macro![' (<&macroname>) ']' \h (.*) $ }
     token include   { '\\include![' <string> ']' $ }
     token default   { '\\default![' <name> ']' <attribute>+ $ }
     token single    { '\\' <element> $ }
@@ -174,30 +176,11 @@ my grammar Line {
     token starred   { '\\' <tree> '*' $ }
     token heredoc   { '\\' <name> '(' (\w+) ')' <attribute>* [':' <element>]? $ }
 
-    token comment { \! { make Comment } }
-    token dummy { <?> { make Dummy } }
-
-    token atom {
-        [ <element> | <element=.comment> | <element=.dummy> ]
-        { make Node.new(element => $<element>.made) }
-    }
-
-    token sublist {
-        <node=.tree>+ % \,
-        {
-            my $first = $<node>[0].made;
-            my $prev = $first;
-            for $<node>[1..*]>>.made {
-                $prev.set-next($_);
-                $prev = $_;
-            }
-            make $first;
-        }
-    }
-
-    token tree {
-        [ <node=.atom> | '{' ~ '}' <node=.sublist> ]+ % '.'
-    }
+    token comment   { '!' }
+    token dummy     { <?> }
+    token atom      { <element> | <element=.comment> | <element=.dummy> }
+    token sublist   { <node=.tree>+ % ',' }
+    token tree      { [ <node=.atom> | '{' ~ '}' <node=.sublist> ]+ % '.' }
 }
 
 my $actions = class {
@@ -260,12 +243,33 @@ my $actions = class {
 
         close-block;
         print $element.open;
-        loop {
-            $_ := INPUT.pull-one;
-            last if $_ =:= IterationEnd || $_ eq $marker;
+        for INPUT {
+            last if $_ eq $marker;
             put .trans(|@HTML);
         }
         put $element.close;
+    }
+
+    method comment($/) {
+        make Comment;
+    }
+
+    method dummy($/) {
+        make Dummy;
+    }
+
+    method atom($/) {
+        make Node.new(element => $<element>.made);
+    }
+
+    method sublist($/) {
+        my $first = $<node>[0].made;
+        my $prev = $first;
+        for $<node>[1..*]>>.made {
+            $prev.set-next($_);
+            $prev = $_;
+        }
+        make $first;
     }
 
     method tree($/) {
@@ -301,9 +305,9 @@ sub parse-line($_) {
                 @stack ?? @stack.pop.close !! ~$/;
             },
 
-            / \\ (<[\S]-[\w]>+) <name> \; / => {
-                ~$0 ~~ %macros
-                    ?? %macros{~$0}.subst(:g, '$', ~$<name>)
+            / '\\' <macroname> <name> ';' / => {
+                ~$<macroname> ~~ %macros
+                    ?? %macros{~$<macroname>}.subst(:g, '$', ~$<name>)
                     !! ~$/;
             };
 
