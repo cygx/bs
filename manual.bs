@@ -9,7 +9,7 @@
 
 \p*
 Sets paragraph mode to <p>.\br
-Stuff extends to the end of the current field or \|\|
+Stuff extends to the end of the current field or \|\|.
 
 A new paragraph. There are also \alpha; escape sequences.
 A link can be added like \a[href foo.html][title [A\] & \[B\]] this\\.
@@ -24,24 +24,23 @@ int main(int argc, char *argv[]) {
 }
 CODE
 
-\ol..{!,li}*
+\ol..{!,li}
 1.	First point
 2.	Second point
 3.	Third point
 
-\table.tr.{th,td}*
+\table.tr.{th,td}
 Name	deca	hecto	kilo
 Value	10		100		1000
 
-\table.{tr.th,tr.td}*
+\table.{tr.th,tr.td}
 Name	Value
 pi		3.14
 e		2.72
 
-\\
 \hr
 
-\.div:small*
+\.div:small
 \@1; footnote 1
 \@2; footnote 2
 \@3; footnote 3
