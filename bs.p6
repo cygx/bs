@@ -125,7 +125,7 @@ sub element-from-match($/) {
 
 my token name { [\w+]+ % '-' }
 my token string { [ ['\\' .] | <-[\\\]]>+ ]* }
-my token macroname { <[\S]-[\w\[\]]>+ }
+my token macroname { <[\S]-[\w\[\]\\]>+ }
 
 my token attribute {
     '[' <name> [\h <string>]? ']'
