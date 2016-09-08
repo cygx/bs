@@ -260,8 +260,10 @@ my $actions = class {
             close-block;
         }
 
-        $block = $row = $cell = Omega;
-        $state = EMPTY;
+        if $rasa {
+            $block = $row = $cell = Omega;
+            $state = EMPTY;
+        }
     }
 
     method starred($/) {
@@ -272,13 +274,15 @@ my $actions = class {
     method heredoc($/) {
         my $marker = ~$0;
         my $element = element-from-match($/);
-        $element = do given $<element>.made {
-            when Element {
-                MultiElement.new(elements => [ $element, $_ ]);
-            }
-            when MultiElement {
-                .elements.unshift($element);
-                $_;
+        if $<element> {
+            $element = do given $<element>.made {
+                when Element {
+                    MultiElement.new(elements => [ $element, $_ ]);
+                }
+                when MultiElement {
+                    .elements.unshift($element);
+                    $_;
+                }
             }
         }
 
