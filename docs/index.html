@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <meta charset="utf-8"/>
-<title>A Sane Way to Write HTML</title>
+<title>Bs Markup Language</title>
 <link rel="stylesheet" href="manual.css" type="text/css"/>
-<h1>A Sane Way to write HTML</h1>
+<h1>Bs Markup Language</h1>
+<div><small><i>A TeX-inspired syntax for hypertext</i></small></div>
+<ol>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#syntax">Markup Syntax</a></li>
+<li><a href="#examples">Example Code</a></li>
+<li><a href="#usage">Tool Usage</a></li>
+<li><a href="#dev">Bugs and Development</a></li>
+<li><a href="#copy">Copyright and License</a></li>
+</ol>
+<h2 id="intro">Introduction</h2>
 <p>
-Sets paragraph mode to &lt;p&gt;.<br/>
+HTML is the default choice for portably formatting text. However, the language is not particularly well-suited to be written by hand, leading to a variety of competing formats used to generate it, such as <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a>, <a href="https://en.wikipedia.org/wiki/Wiki_markup">Wiki markup</a> or <a href="https://en.wikipedia.org/wiki/BBCode">BBCode</a> as well as more generic formats like <a href="https://en.wikipedia.org/wiki/ReStructuredText">reStructuredText</a> or <a href="https://en.wikipedia.org/wiki/AsciiDoc">AsciiDoc</a>.
+</p>
+<p>
+<i>Bs</i><sup><a href="#note-1" id="ref-1" class="ref">1</a></sup> markup is another competitor in this space. You might want to consider it if the following constraints are compatible with your use case:
+</p>
+<ul>
+<!-- *--><li>you're fine with generating <i>'tag soup'</i> instead of well-structured markup</li>
+<!-- *--><li>you want <i>some</i> control over the generated markup, but do not need to generate arbitrarily deeply nested code</li>
+<!-- *--><li>reading <i>TeX</i> does not make you want to claw out your eyeballs</li>
+</ul>
+<p>
+If that's not something you can live with, you're probably better off with another solution.
+</p>
+<h2 id="syntax">Markup Syntax</h2>
+<h2 id="usage">Tool Usage</h2>
+<h2 id="examples">Example Code</h2>
+<p>
+<code>\p*</code> sets paragraph mode to <code>&lt;p&gt;</code>.<br/>
 Stuff extends to the end of the current field or \\.
 </p>
 <p>
@@ -12,14 +39,11 @@ A new paragraph. There are also &alpha; escape sequences.
 A link can be added like <a title="[A] &amp; [B]" href="foo.html">this</a>.
 We also escape &amp; and can apply <b><i>multiple elements at once</i></b>.
 </p>
-<p>
-We also can<sup><a href="#note-1" id="ref-1" class="ref">1</a></sup> have<sup><a href="#note-2" id="ref-2" class="ref">2</a></sup> footnotes<sup><a href="#note-3" id="ref-3" class="ref">3</a></sup>.
-</p>
-<pre><code class="c">int main(int argc, char *argv[]) {
-    puts("Hello World!");
-    return 0;
-}
-</code></pre>
+<pre>\ol..{!,li}
+1.	First point
+2.	Second point
+3.	Third point
+</pre>
 <ol>
 <!--1.--><li>First point</li>
 <!--2.--><li>Second point</li>
@@ -34,7 +58,17 @@ We also can<sup><a href="#note-1" id="ref-1" class="ref">1</a></sup> have<sup><a
 <tr><td>pi</td><td>3.14</td></tr>
 <tr><td>e</td><td>2.72</td></tr>
 </table>
+<p>
+Here's another paragraph.
+</p>
+<h2 id="dev">Bugs and Development</h2>
+<p>
+Development happens at <a href="https://github.com/cygx/bs">GitHub</a>. Use the <a href="https://github.com/cygx/bs/issues">issue tracker</a> over there for bug reports and feature requests.
+</p>
+<h2 id="copy">Copyright and License</h2>
+<p>
+Copyright &copy; 2016 by cygx<br/>
+Distributed under the <a href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License, Version 1.0</a>
+</p>
 <hr/>
-<div><small><sup><a href="#ref-1" id="note-1" class="note">1</a></sup> footnote 1</small></div>
-<div><small><sup><a href="#ref-2" id="note-2" class="note">2</a></sup> footnote 2</small></div>
-<div><small><sup><a href="#ref-3" id="note-3" class="note">3</a></sup> footnote 3</small></div>
+<div><small><sup><a href="#ref-1" id="note-1" class="note">1</a></sup> short for <i>backslash</i> - the name has nothing to do whatsoever with livestock</small></div>
