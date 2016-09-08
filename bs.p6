@@ -214,13 +214,25 @@ my $actions = class {
 
     method nested($/) {
         close-block;
-        temp $block = $<tree>.made;
-        loop {
-            $_ := INPUT.pull-one;
-            last if $_ =:= IterationEnd || $_ eq '';
-            parse-line($_);
+
+        my $rasa = False;
+        do {
+            temp $block = $<tree>.made;
+            for INPUT {
+                when '' { last }
+
+                when '\\\\' {
+                    $rasa = True;
+                    last;
+                }
+
+                default { parse-line($_) }
+            }
+            close-block;
         }
-        close-block;
+
+        $block = $row = $cell = Omega;
+        $state = EMPTY;
     }
 
     method starred($/) {
