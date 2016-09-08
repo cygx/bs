@@ -1,27 +1,57 @@
 \meta[charset utf-8]
-\title A Sane Way to Write HTML
+\title Bs Markup Language
 \link[rel stylesheet][type text/css][href manual.css]
 
 \include![macros.bs]
 \default![table][border 1]
 
-\h1 A Sane Way to write HTML
 
+\h1 Bs Markup Language
+\div:small:i A TeX-inspired syntax for hypertext
+
+\ol.li
+\a[href #intro] Introduction
+\a[href #syntax] Markup Syntax
+\a[href #examples] Example Code
+\a[href #usage] Tool Usage
+\a[href #dev] Bugs and Development
+\a[href #copy] Copyright and License
+
+
+\h2[id intro] Introduction
 \p*
-Sets paragraph mode to <p>.\br
+HTML is the default choice for portably formatting text. However, the language is not particularly well-suited to be written by hand, leading to a variety of competing formats used to generate it, such as \a[href https://en.wikipedia.org/wiki/Markdown] Markdown\\, \a[href https://en.wikipedia.org/wiki/Wiki_markup] Wiki markup\\ or \a[href https://en.wikipedia.org/wiki/BBCode] BBCode\\ as well as more generic formats like \a[href https://en.wikipedia.org/wiki/ReStructuredText] reStructuredText\\ or \a[href https://en.wikipedia.org/wiki/AsciiDoc] AsciiDoc\\.
+
+\i Bs\\\~1; markup is another competitor in this space. You might want to consider it if the following constraints are compatible with your use case:
+
+\ul..{!,li}
+ *	you're fine with generating \i 'tag soup'\\ instead of well-structured markup
+ *	you want \i some\\ control over the generated markup, but do not need to generate arbitrarily deeply nested code
+ *	reading \i TeX\\ does not make you want to claw out your eyeballs
+
+If that's not something you can live with, you're probably better off with another solution.
+\\
+
+
+\h2[id syntax] Markup Syntax
+
+\h2[id usage] Tool Usage
+
+
+\h2[id examples] Example Code
+\p*
+\code \|p*\\ sets paragraph mode to \code <p>\\.\br
 Stuff extends to the end of the current field or \|\|.
 
 A new paragraph. There are also \alpha; escape sequences.
 A link can be added like \a[href foo.html][title [A\] & \[B\]] this\\.
 We also escape & and can apply \b:i multiple elements at once\\.
 
-We also can\~1; have\~2; footnotes\~3;.
-
-\pre(CODE):code[class c]
-int main(int argc, char *argv[]) {
-    puts("Hello World!");
-    return 0;
-}
+\pre(CODE)
+\ol..{!,li}
+1.	First point
+2.	Second point
+3.	Third point
 CODE
 
 \ol..{!,li}
@@ -38,9 +68,22 @@ Name	Value
 pi		3.14
 e		2.72
 
+Here's another paragraph.
+\\
+
+
+\h2[id dev] Bugs and Development
+\p*
+Development happens at \a[href https://github.com/cygx/bs] GitHub\\. Use the \a[href https://github.com/cygx/bs/issues] issue tracker\\ over there for bug reports and feature requests.
+\\
+
+\h2[id copy] Copyright and License
+\p*
+Copyright \copy; 2016 by cygx\br
+Distributed under the \a[href http://www.boost.org/LICENSE_1_0.txt] Boost Software License, Version 1.0
+\\
+
 \hr
 
 \.div:small
-\@1; footnote 1
-\@2; footnote 2
-\@3; footnote 3
+\@1; short for \i backslash\\ - the name has nothing to do whatsoever with livestock
