@@ -129,7 +129,7 @@ my token macroname { <[\S]-[\w\[\]\\]>+ }
 
 my token attribute {
     '[' <name> [\h <string>]? ']'
-    { make ~$<name> => $<string> ?? $<string>.trans(|@ATTR) !! '' }
+    { make ~$<name> => $<string> ?? $<string>.trans(@ATTR) !! '' }
 }
 
 my token element {
@@ -290,7 +290,8 @@ my $actions = class {
         print $element.open;
         for INPUT {
             last if $_ eq $marker;
-            put .trans(|@HTML);
+            my $/; # bugfix
+            put .trans(@HTML);
         }
         put $element.close;
     }
